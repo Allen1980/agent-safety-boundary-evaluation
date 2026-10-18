@@ -1,48 +1,57 @@
-# Agent action-boundary evaluation
+# Human-verified operational memory for AI workflows
 
-A small, reproducible experiment about an important failure mode in tool-using AI agents: taking an action that the user did not authorize.
+**Product direction:** automated testing and colleague verification → evidence-backed operational memory → source-grounded knowledge assistant.
 
-**Research question:** How can we measure whether an agent stays within delegated authority, especially after approval is revoked?
+**What this repository is today:** a small, openly inspectable **synthetic AI safety evaluation**, not the full product. It explores a critical risk in that workflow: an agent or a test system treating **unreviewed, stale, revoked or cross-context results as trusted knowledge**.
 
-## What exists today
+[Research question, experimental design and provisional grant budget](docs/AI_SAFETY_RESEARCH_PILOT.md)
 
-This repo contains a **deterministic toy harness**, not a deployed AI agent or a validated AI-safety system. It compares three stylized decision rules on 15 synthetic tool-action scenarios:
+## The three-part product direction
 
-- `unguarded`: all proposed actions go through;
-- `approve_everything`: an idealized reviewer applies the same perfect authorization rule used to define the test labels;
-- `risk_tiered`: routine delegated actions can proceed, while consequential actions need explicit approval and revocation takes precedence.
+1. **Automated testing + human verification** — produce repeatable test evidence and let responsible colleagues make the final judgment. Automation does not sign off its own results.
+2. **Operational memory + conversational AI** — after authorized human review, preserve test outcomes, defect resolutions, corrections, and provenance so an assistant can retrieve grounded answers.
+3. **Knowledge base / system digital SME** — maintain scoped and versioned SOPs, business rules, known exceptions, and approved operational history for explain, guide and document-drafting workflows.
 
-Actions are simulated. There are **no external emails, payments, account changes, real API requests, real users, or employer data**.
+These are **intended capabilities**, not evidence that integrations with ChatGPT, colleagues, test systems, or an enterprise knowledge base have been built here.
 
-## Reproduce the experiment
+## The specific AI safety failure mode
 
-Python 3.10+; no third-party dependencies.
+A superficially successful agent may produce an incorrect conclusion. If its output becomes a trusted system memory without appropriate review, the mistake can persist and later be repeated by a knowledge assistant. The risk is **unsafe promotion of agent output to operational knowledge**.
+
+The current prototype simulates defensive boundaries; the grant would fund more realistic, independently labeled model-driven experiments in fully isolated mock environments.
+
+## Runnable evidence — no external dependencies
+
+Requires Python 3.10+:
 
 ```bash
-python -m unittest -v
+python -m unittest discover -v
 python agent_boundary_eval.py > synthetic_evidence.json
+python human_verified_memory.py
 ```
 
-Five unit tests pass in the current environment. The generated JSON contains a canonical SHA-256 digest for each trace so repeated runs can be compared.
+The current GitHub Actions run should verify **20 unit tests**, including 15 tests for human-reviewed memory promotion.
 
-| Synthetic result | Unguarded | Idealized review-every-action | Risk-tiered |
-| --- | ---: | ---: | ---: |
-| Scenarios evaluated | 15 | 15 | 15 |
-| Unauthorized actions executed | 7 | 0 | 0 |
-| Review checks (simulated) | 0 | 15 | 9 |
+| Implemented | Evidence | Important limit |
+| --- | --- | --- |
+| Tool-action boundary toy harness | 15 synthetic action scenarios × 3 stylized regimes = 45 policy decisions | Not real LLM actions or real human approvals |
+| Human-verified memory gate toy | Explicit scoped review, version checks, tenant checks, revocation, expiry, citation and evidence digest | Reviewer identities are only synthetic strings; no real authentication |
+| Negative-path tests | 15 new unit tests for unsafe memory promotion and retrieval | Tests exercise programmed rules, not independent field measurements |
+| CI | GitHub Actions runs the Python unit tests | Passing tests does not prove actual production safety |
 
-**Do not interpret the zeros as evidence of real-world safety.** The authorization labels and the two protective rule sets are constructed from the same assumptions. The outcome is intentionally predictable; the experiment currently demonstrates instrumentation and reproducibility, not safety efficacy or actual reductions in human workload.
+For the earlier action-boundary fixtures, unguarded mode executes 7 labeled unauthorized actions while two idealized gated modes execute 0; those zeros arise from fixture assumptions and **must not be presented as empirically measured protection**. The new memory gate demonstrates a narrow, deterministic fail-closed decision, not a validated human-approval service.
 
-## Research next steps
+## Research to be funded — not yet performed
 
-1. Replace fixed actions with tool-call proposals from actual language-model agents in a mock-only environment.
-2. Construct held-out task variations, ambiguous authority boundaries and adversarial revocation cases.
-3. Separate independent ground-truth labeling from the protective policy under test.
-4. Measure executed unauthorized actions, false blocks, trace completeness, escalation burden and time to stop consequential actions.
-5. Report failure cases and limitations, not only aggregate metrics.
+A proposed [AI safety pilot](docs/AI_SAFETY_RESEARCH_PILOT.md) will test when LLM-generated tool outputs and test results should or should not become trusted memory. It will use held-out synthetic cases, independently labeled truth, controlled mock-tool calls and failure analysis. Relevant measures include unauthorized memory promotions, legitimate promotions blocked, retrieval of stale facts, citation quality, cost and review burden.
 
-## Scope and provenance
+**Provisional project-cost request:** US$1,000 for usage-metered model evaluations, isolated test compute and evidence handling, subject to provider quotations and BlueDot approval. It is **restricted-purpose research funding**, not salary, investment or unrestricted personal cash; grant approval and payment are not implied.
 
-This is an AI-assisted prototype assembled for independent research scoping. It does not reuse banking systems, customer data, employer code, or internal architecture. It is **not** a demonstration that any existing personal or employer-related model is legally free of third-party rights.
+## Source, privacy and licensing
 
-No open-source license is granted by this repository at this stage. Please contact the owner before reuse beyond rights provided by the hosting platform.
+- All demonstration data in this repository are synthetic; no employer systems, customer records, internal code or live endpoints are included.
+- This prototype was prepared with AI assistance. No statement of human-only authorship or independent safety validation is made.
+- This repository has **no open-source license at present**. Public access is not permission to reuse the code beyond applicable platform and legal rights.
+- Legal/IP, grant and any external publishing permissions must be addressed separately; the code does not substitute for those determinations.
+
+[BlueDot Impact Rapid Grants](https://bluedot.org/programs/rapid-grants) | [Research pilot](docs/AI_SAFETY_RESEARCH_PILOT.md)
