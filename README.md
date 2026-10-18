@@ -45,7 +45,7 @@ For the earlier action-boundary fixtures, unguarded mode executes 7 labeled unau
 
 A proposed [AI safety pilot](docs/AI_SAFETY_RESEARCH_PILOT.md) will test when LLM-generated tool outputs and test results should or should not become trusted memory. It will use held-out synthetic cases, independently labeled truth, controlled mock-tool calls and failure analysis. Relevant measures include unauthorized memory promotions, legitimate promotions blocked, retrieval of stale facts, citation quality, cost and review burden.
 
-**Provisional project-cost request:** US$1,000 for usage-metered model evaluations, isolated test compute and evidence handling, subject to provider quotations and BlueDot approval. It is **restricted-purpose research funding**, not salary, investment or unrestricted personal cash; grant approval and payment are not implied.
+**Provisional first-stage research request:** US$500 (US$300 usage-metered model API budget; US$150 isolated mock-tool compute; US$50 trace processing/storage). These are spending ceilings, not vendor quotations or guaranteed grant amounts. Only actual approved research costs may be charged. It is **restricted-purpose research funding**, not salary, investment or unrestricted personal cash; grant approval and payment are not implied.
 
 ## Source, privacy and licensing
 
