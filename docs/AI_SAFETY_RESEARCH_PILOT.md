@@ -43,14 +43,14 @@ This research will not claim improved safety if it merely filters hand-coded bad
 
 ## Funding use (provisional, not quoted)
 
-The proposed **US$1,000** Rapid Grant request is a *ceiling for project-specific research expenses*, not compensation, investment, guaranteed cash, or a claim that funds are already available:
+The proposed **US$500** Rapid Grant request is an initial, staged *ceiling for project-specific research expenses*, not compensation, investment, guaranteed cash, or a claim that funds are already available. The pilot will use bounded pay-as-you-go spending, starting with small batches; only expand model experiments if initial results reveal a meaningful safety question.
 
 | Intended cost | Preliminary ceiling | What it unlocks |
 | --- | ---: | --- |
-| Metered LLM API inference | US$600 | Multiple model baselines and adversarial memory-update proposals |
-| Isolated mock-tool compute | US$250 | Repeatable held-out evaluations and trace processing |
-| Project-specific traces/storage | US$150 | Reproducibility and evidence review |
-| **Total** | **US$1,000** | Only approved research costs |
+| Metered LLM API inference across baseline and stronger model evaluations | US$300 | Model-proposed memory writes, adversarial variants and held-out evaluations |
+| Isolated mock-tool execution and evaluation compute | US$150 | Repeated safe rollouts, experiment replay and structured trace processing |
+| Project-specific evidence storage / trace handling | US$50 | Reproducible traces, artifact integrity and results review |
+| **Total** | **US$500** | Only approved pilot research costs |
 
 Vendor unit rates and model token usage have **not** been verified. The application amount and breakdown should be revised if actual quotes or workload estimates are materially lower. No funds will be spent in anticipation of reimbursement without written authorization; the funder may pay upfront or reimburse later.
 
